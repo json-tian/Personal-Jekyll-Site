@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "This is a test post"
+title: "This is a test post 2"
 date: 2019-03-18 20:50:50 -0400
 categories: jekyll update
 ---
