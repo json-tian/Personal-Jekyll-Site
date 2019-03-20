@@ -1,0 +1,120 @@
+---
+layout: default
+---
+
+{%- if page.title -%}
+<h1 class="page-heading">{{ page.title }}</h1>
+{%- endif -%}
+{{ content }}
+<div class="row padding edgepadding">
+  {%- for post in site.categories.projects -%} {% if post.categories contains
+  'project' %}
+  <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+    <div class="card text-center">
+      <a
+        class="prev"
+        onclick="var temp = '{{ post.order }}';plusSlides(-1, temp)"
+        >&#10094;</a
+      >
+      <a
+        class="next"
+        onclick="var temp = '{{ post.order }}';plusSlides(1, temp)"
+        >&#10095;</a
+      >
+      <div class="card-body">
+        <h3>
+          <a class="post-link" href="{{ post.url | relative_url }}">
+            {{ post.title | escape }}
+          </a>
+        </h3>
+        {% assign image_files = site.static_files %}
+        <div class="slideshow-container">
+          {% for image in image_files %} {% assign image_set = post.image_set %}
+          {% if image.path contains image_set %}
+          <div class="mySlides{{ post.order }} fade">
+            <img class="card-img-top" src="{{ image.path }}" />
+          </div>
+          {% endif %} {% endfor %}
+        </div>
+        <br />
+        <div style="text-align:center">
+          <span
+            id="dot"
+            class="dot{{ post.order }}"
+            onclick="var temp = '{{ post.order }}';currentSlide(1, temp)"
+          ></span>
+          <span
+            id="dot"
+            class="dot{{ post.order }}"
+            onclick="var temp = '{{ post.order }}';currentSlide(2, temp)"
+          ></span>
+          <span
+            id="dot"
+            class="dot{{ post.order }}"
+            onclick="var temp = '{{ post.order }}';currentSlide(3, temp)"
+          ></span>
+        </div>
+        <p>{{ post.description }}</p>
+        <div class="links">
+          <a
+            href="{{ post.link1 }}"
+            class="fa fa-{{ post.type1 }} fa-3x"
+            target="_blank"
+          ></a>
+          <a
+            href="{{ post.link2 }}"
+            class="fa fa-{{ post.type2 }} fa-3x"
+            target="_blank"
+          ></a>
+          <a
+            href="{{ post.link3 }}"
+            class="fa fa-{{ post.type3 }} fa-3x"
+            target="_blank"
+          ></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {%- if site.show_excerpts -%}
+  {{ post.excerpt }}
+  {%- endif -%} {% endif %} {% endfor %}
+</div>
+
+<script>
+  var slideIndex = [1, 1];
+  var slideId = ["mySlides0", "mySlides1"];
+  var dotId = ["dot0", "dot1"];
+  showSlides(1, 0);
+  showSlides(1, 1);
+  // Next/previous controls
+  function plusSlides(n, no) {
+    slideIndex[no] += n;
+    showSlides(slideIndex[no], no);
+  }
+
+  // Thumbnail image controls
+  function currentSlide(n, no) {
+    slideIndex[no] = n;
+    showSlides(slideIndex[no], no);
+  }
+
+  function showSlides(n, no) {
+    var slides = document.getElementsByClassName(slideId[no]);
+    var dots = document.getElementsByClassName(dotId[no]);
+
+    if (n > slides.length) {
+      slideIndex[no] = 1;
+    }
+    if (n < 1) {
+      slideIndex[no] = slides.length;
+    }
+    for (var i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    for (var i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex[no] - 1].style.display = "block";
+    dots[slideIndex[no] - 1].className += " active";
+  }
+</script>
