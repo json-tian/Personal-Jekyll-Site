@@ -31,7 +31,7 @@ layout: default
         <div class="slideshow-container">
           {% for image in image_files %} {% assign image_set = post.image_set %}
           {% if image.path contains image_set %}
-          <div class="mySlides{{ post.order }} fade">
+          <div class="mySlides{{ post.order }} slide fade">
             <img class="card-img-top" src="{{ image.path }}" />
           </div>
           {% endif %} {% endfor %}
@@ -61,16 +61,19 @@ layout: default
             class="fa fa-{{ post.type1 }} fa-3x"
             target="_blank"
           ></a>
+          {% if post.link2 %}
           <a
             href="{{ post.link2 }}"
             class="fa fa-{{ post.type2 }} fa-3x"
             target="_blank"
           ></a>
+          {% endif %} {% if post.link3 %}
           <a
             href="{{ post.link3 }}"
             class="fa fa-{{ post.type3 }} fa-3x"
             target="_blank"
           ></a>
+          {% endif %}
         </div>
       </div>
     </div>
@@ -81,11 +84,13 @@ layout: default
 </div>
 
 <script>
-  var slideIndex = [1, 1];
-  var slideId = ["mySlides0", "mySlides1"];
-  var dotId = ["dot0", "dot1"];
+  var slideIndex = [1, 1, 1, 1, 1];
+  var slideId = ["mySlides0", "mySlides1", "mySlides2", "mySlides3"];
+  var dotId = ["dot0", "dot1", "dot2", "dot3"];
   showSlides(1, 0);
   showSlides(1, 1);
+  showSlides(1, 2);
+  showSlides(1, 3);
   // Next/previous controls
   function plusSlides(n, no) {
     slideIndex[no] += n;
